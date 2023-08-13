@@ -129,6 +129,15 @@ cdef class _Indicator:
         if self.info.outputs == 1:
             return outputs[0]
 
+        tg = max(len(value) for value in inputs)
+        og = tuple(outputs)
+        outputs = []
+        if len(og) > 1:
+            for o in og:
+                outputs.append(np.concatenate((np.full(tg - len(o), np.nan), o))
+        else:
+            outputs = np.concatenate((np.full(tg - len(og[0]), np.nan), og[0])
+    
         return tuple(outputs)
 
 
